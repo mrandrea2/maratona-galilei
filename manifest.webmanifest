@@ -1,0 +1,14 @@
+{
+  "name": "Maratona 42,195 | Liceo Galilei Verona",
+  "short_name": "Maratona",
+  "description": "La maratona spiegata con la scienza: storia, fisiologia, allenamento, alimentazione e mente",
+  "lang": "it",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0F1A2B",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
