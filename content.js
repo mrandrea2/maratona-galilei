@@ -2,7 +2,7 @@
 window.SECTIONS = [
 /* ===================================================== 1. STORIA */
 {
-  id: "storia", short: "Storia", n: 1, color: "#C2562E", soft: "#FBEDE6",
+  id: "storia", short: "Storia", n: 1, color: "#A9431F", soft: "#FBEAE3",
   title: "Storia della maratona",
   tag: "Dal mito al sub-2 ore",
   intro: "Dal messaggero Fidippide al 1:59:30 di Sabastian Sawe: 2500 anni di leggende, record, battaglie per i diritti e tecnologia.",
@@ -69,7 +69,7 @@ window.SECTIONS = [
 },
 /* ===================================================== 2. FISIOLOGIA */
 {
-  id: "fisiologia", short: "Fisiologia", n: 2, color: "#0E7C74", soft: "#E2F3F1",
+  id: "fisiologia", short: "Fisiologia", n: 2, color: "#0B6B64", soft: "#E0F2EF",
   title: "Fisiologia e metabolismi",
   tag: "Come il corpo produce energia",
   intro: "ATP, sistemi energetici, VO2max, soglie, carburanti e il famoso \"muro\": cosa succede dentro il corpo durante 42 km.",
@@ -139,7 +139,7 @@ window.SECTIONS = [
 },
 /* ===================================================== 3. ALLENAMENTO */
 {
-  id: "allenamento", short: "Allenamento", n: 3, color: "#C42A3C", soft: "#FBE6E9",
+  id: "allenamento", short: "Allenamento", n: 3, color: "#B0202F", soft: "#FBE4E7",
   title: "Allenamento efficace",
   tag: "Principi, zone, sedute, gara",
   intro: "Come si costruisce un allenamento che funziona: principi, intensità, tipi di seduta, forza, prevenzione infortuni, tapering e gestione del ritmo. E cosa vale per chi ha 15 anni.",
@@ -210,7 +210,7 @@ window.SECTIONS = [
 },
 /* ===================================================== 4. ALIMENTAZIONE */
 {
-  id: "alimentazione", short: "Alimentazione", n: 4, color: "#C8661A", soft: "#FCEEDF",
+  id: "alimentazione", short: "Alimentazione", n: 4, color: "#9A4A0C", soft: "#FCEBDA",
   title: "Alimentazione specifica",
   tag: "Energia, carboidrati, idratazione",
   intro: "Mangiare abbastanza, carboidrati al momento giusto, rifornimento in gara, bere secondo la sete, recupero, RED-S e integratori: cosa dice la scienza.",
@@ -276,7 +276,7 @@ window.SECTIONS = [
 },
 /* ===================================================== 5. MENTE */
 {
-  id: "mente", short: "Mente", n: 5, color: "#5E44A8", soft: "#EEEAF8",
+  id: "mente", short: "Mente", n: 5, color: "#5338A0", soft: "#ECE7F8",
   title: "Aspetti mentali",
   tag: "Fatica, sforzo, motivazione",
   intro: "La fatica nasce anche nel cervello. Percezione dello sforzo, self-talk, obiettivi, visualizzazione, ansia, motivazione e prevenzione del burnout.",

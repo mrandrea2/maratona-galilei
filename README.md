@@ -16,7 +16,7 @@ Cinque sezioni, una per gruppo di lavoro:
 
 Ogni sezione ha: schede "Impara", laboratori interattivi, quiz di 10 domande, scaletta per l'esposizione di 15 minuti, glossario italiano-inglese con pronuncia e fonti scientifiche.
 
-In più: **Sfida a squadre** (fino a 50 domande da proiettare in classe) e **Pagina docente**.
+In più: **Sfida a squadre** (fino a 50 domande da proiettare in classe).
 
 ## Laboratori
 

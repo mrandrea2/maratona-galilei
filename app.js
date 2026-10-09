@@ -76,12 +76,12 @@ const LABS = {
   const path = R.map((r, i) => (i ? "H" + x(r[0]).toFixed(1) + "V" : "M" + x(r[0]).toFixed(1) + ",") + yv(r[1]).toFixed(1)).join("") + "H" + x(2026);
   const ticks = [120, 135, 150, 165, 180];
   el.innerHTML = `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Record del mondo maschile di maratona dal 1908 al 2026">
-    ${ticks.map((t) => `<line x1="${p.l}" x2="${W - p.r}" y1="${yv(t)}" y2="${yv(t)}" stroke="#E6E9F0"/><text x="${p.l - 8}" y="${yv(t) + 4}" text-anchor="end" font-size="12" fill="#6E7891">${Math.floor(t / 60)}h${String(t % 60).padStart(2, "0")}</text>`).join("")}
-    <line x1="${p.l}" x2="${W - p.r}" y1="${yv(120)}" y2="${yv(120)}" stroke="#C42A3C" stroke-dasharray="5 4"/><text x="${W - p.r}" y="${yv(120) - 6}" text-anchor="end" font-size="12" fill="#C42A3C" font-weight="700">muro delle 2 ore</text>
-    ${[1920, 1950, 1980, 2010].map((y) => `<text x="${x(y)}" y="${H - 8}" text-anchor="middle" font-size="12" fill="#6E7891">${y}</text>`).join("")}
+    ${ticks.map((t) => `<line x1="${p.l}" x2="${W - p.r}" y1="${yv(t)}" y2="${yv(t)}" stroke="#D5DAE5"/><text x="${p.l - 8}" y="${yv(t) + 4}" text-anchor="end" font-size="14" fill="#3D4862">${Math.floor(t / 60)}h${String(t % 60).padStart(2, "0")}</text>`).join("")}
+    <line x1="${p.l}" x2="${W - p.r}" y1="${yv(120)}" y2="${yv(120)}" stroke="#B0202F" stroke-dasharray="5 4"/><text x="${W - p.r}" y="${yv(120) - 6}" text-anchor="end" fill="#B0202F" font-weight="700" font-size="14">muro delle 2 ore</text>
+    ${[1920, 1950, 1980, 2010].map((y) => `<text x="${x(y)}" y="${H - 8}" text-anchor="middle" font-size="14" fill="#3D4862">${y}</text>`).join("")}
     <path d="${path}" fill="none" stroke="var(--c)" stroke-width="3"/>
     ${R.map((r) => `<circle cx="${x(r[0])}" cy="${yv(r[1])}" r="4" fill="var(--c)"/>`).join("")}
-    <line id="cl" x1="0" x2="0" y1="${p.t}" y2="${H - p.b}" stroke="#0F1A2B" stroke-width="1.5"/><circle id="cd" r="7" fill="#0F1A2B"/></svg></div>
+    <line id="cl" x1="0" x2="0" y1="${p.t}" y2="${H - p.b}" stroke="#0B1424" stroke-width="2"/><circle id="cd" r="8" fill="#0B1424"/></svg></div>
     <input type="range" min="1908" max="2026" value="2026" id="ry" aria-label="Anno">
     <div class="out" id="ro"></div>`;
   const up = () => {
@@ -102,12 +102,12 @@ const LABS = {
   const lab = (s) => s < 60 ? s + " s" : s < 3600 ? s / 60 + " min" : s / 3600 + " h";
   const ex = { 5: "partenza, 30 m", 10: "100 m", 30: "200 m", 60: "400 m", 120: "800 m", 240: "1500 m", 600: "3000 m", 1800: "10 km", 3600: "mezza maratona élite", 7200: "maratona élite", 10800: "maratona amatore" };
   el.innerHTML = `<label class="ctrl" style="display:block"><b>Durata dello sforzo: <span id="ed"></span></b><input type="range" min="0" max="${T.length - 1}" value="9" id="er"></label>
-    <div class="bar" id="eb"></div><div class="legend"><span><i style="background:#F2B33D"></i>ATP-PCr</span><span><i style="background:#C42A3C"></i>Glicolisi anaerobica</span><span><i style="background:#0E7C74"></i>Aerobico</span></div>
+    <div class="bar" id="eb"></div><div class="legend"><span><i style="background:#F2B33D"></i>ATP-PCr</span><span><i style="background:#B0202F"></i>Glicolisi anaerobica</span><span><i style="background:#0B6B64"></i>Aerobico</span></div>
     <div class="out" style="margin-top:14px" id="eo"></div><p class="note">Stime didattiche arrotondate, basate sulla revisione di Gastin (2001) sul contributo dei sistemi energetici in sforzi massimali.</p>`;
   const up = () => {
     const s = T[+$("#er", el).value], a = interp(AER, s), an = 100 - a, pc = an * interp(PCR, s), gl = an - pc;
     $("#ed", el).textContent = lab(s) + " (" + ex[s] + ")";
-    $("#eb", el).innerHTML = `<div style="flex-basis:${pc}%;background:#F2B33D">${pc >= 7 ? Math.round(pc) + "%" : ""}</div><div style="flex-basis:${gl}%;background:#C42A3C">${gl >= 7 ? Math.round(gl) + "%" : ""}</div><div style="flex-basis:${a}%;background:#0E7C74">${a >= 7 ? Math.round(a) + "%" : ""}</div>`;
+    $("#eb", el).innerHTML = `<div style="flex-basis:${pc}%;background:#F2B33D;color:#0B1424">${pc >= 7 ? Math.round(pc) + "%" : ""}</div><div style="flex-basis:${gl}%;background:#B0202F">${gl >= 7 ? Math.round(gl) + "%" : ""}</div><div style="flex-basis:${a}%;background:#0B6B64">${a >= 7 ? Math.round(a) + "%" : ""}</div>`;
     $("#eo", el).innerHTML = a >= 50 ? `Domina il <b>sistema aerobico</b> (${Math.round(a)}%). ${a > 95 ? "È la situazione della maratona: conta l'ossigeno." : ""}` : `Dominano i <b>sistemi anaerobici</b> (${Math.round(an)}%): sforzo breve e intenso.`;
   };
   $("#er", el).oninput = up; up();
@@ -116,12 +116,12 @@ const LABS = {
 "crossover": { t: "Grassi o carboidrati?", s: "Sposta l'intensità e guarda come cambia il carburante (crossover concept)", i: "flame", render(el) {
   const CHO = [[25, 20], [45, 45], [65, 70], [85, 90], [95, 97]];
   el.innerHTML = `<label class="ctrl" style="display:block"><b>Intensità: <span id="ci"></span>% del VO2max</b><input type="range" min="25" max="95" value="65" id="cr"></label>
-    <div class="bar" id="cb"></div><div class="legend"><span><i style="background:#0E7C74"></i>Carboidrati</span><span><i style="background:#F2B33D"></i>Grassi</span></div>
+    <div class="bar" id="cb"></div><div class="legend"><span><i style="background:#0B6B64"></i>Carboidrati</span><span><i style="background:#F2B33D"></i>Grassi</span></div>
     <div class="out" style="margin-top:14px" id="co"></div><p class="note">Schema didattico della tendenza descritta da Brooks e Mercier (1994); i valori individuali variano con allenamento e alimentazione.</p>`;
   const up = () => {
     const v = +$("#cr", el).value, c = interp(CHO, v), f = 100 - c;
     $("#ci", el).textContent = v;
-    $("#cb", el).innerHTML = `<div style="flex-basis:${c}%;background:#0E7C74">${Math.round(c)}%</div><div style="flex-basis:${f}%;background:#F2B33D;color:#0F1A2B">${f >= 6 ? Math.round(f) + "%" : ""}</div>`;
+    $("#cb", el).innerHTML = `<div style="flex-basis:${c}%;background:#0B6B64">${Math.round(c)}%</div><div style="flex-basis:${f}%;background:#F2B33D;color:#0B1424">${f >= 6 ? Math.round(f) + "%" : ""}</div>`;
     const z = v < 55 ? "camminata veloce o corsa lentissima: si usano molti grassi" : v < 70 ? "corsa facile o ritmo maratona amatore" : v < 85 ? "ritmo maratona élite / mezza maratona" : "ritmo 10 km o ripetute: quasi solo carboidrati";
     $("#co", el).innerHTML = `A questa intensità: <b>${z}</b>.`;
   };
@@ -197,7 +197,7 @@ const LABS = {
 "srpe": { t: "Il diario del carico (sRPE)", s: "Minuti × sforzo percepito: calcola il carico della settimana e il rischio", i: "chart", render(el) {
   const days = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
   const def = [[45, 4], [0, 0], [50, 7], [30, 3], [0, 0], [60, 5], [0, 0]];
-  el.innerHTML = `<table class="mini"><tr><th>Giorno</th><th>Minuti</th><th>RPE (0-10)</th><th>Carico</th></tr>${days.map((d, i) => `<tr><td><b>${d}</b></td><td><input type="number" min="0" data-m="${i}" value="${def[i][0]}" style="width:80px;border:1.5px solid var(--line);border-radius:8px;padding:6px"></td><td><input type="number" min="0" max="10" data-r="${i}" value="${def[i][1]}" style="width:70px;border:1.5px solid var(--line);border-radius:8px;padding:6px"></td><td data-l="${i}"></td></tr>`).join("")}</table>
+  el.innerHTML = `<table class="mini"><tr><th>Giorno</th><th>Minuti</th><th>RPE (0-10)</th><th>Carico</th></tr>${days.map((d, i) => `<tr><td><b>${d}</b></td><td><input type="number" min="0" data-m="${i}" value="${def[i][0]}" class="field" style="width:90px"></td><td><input type="number" min="0" max="10" data-r="${i}" value="${def[i][1]}" class="field" style="width:80px"></td><td data-l="${i}"></td></tr>`).join("")}</table>
     <div class="ctrl"><label>Carico medio delle 3 settimane precedenti (UA)<input type="number" id="sp" value="900"></label></div>
     <div class="kpis" id="so"></div><p class="note">Metodo sRPE di Foster (2001). ACWR = carico di questa settimana ÷ media delle ultime 4 settimane. Zona prudente indicativa: 0,8-1,3.</p>`;
   const up = () => {
@@ -296,8 +296,8 @@ const LABS = {
 
 "selftalk": { t: "Costruisci il tuo self-talk", s: "Tre frasi personali da allenare nelle sedute dure", i: "speak", render(el) {
   const sug = { i: ["Braccia rilassate", "Passo corto in salita", "Respira lungo", "Spingi dal piede"], m: ["Ce la faccio", "Sono pronto", "Mi sono allenato per questo", "Sto andando bene"], c: ["Un chilometro alla volta", "Solo fino al prossimo ristoro", "La fatica passa, il risultato resta", "Segui chi hai davanti"] };
-  const row = (k, lab) => `<label style="display:block;margin-bottom:14px"><b>${lab}</b><input id="st${k}" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0" placeholder="Scrivi o scegli qui sotto"><div class="chips">${sug[k].map((s) => `<button class="chip" data-k="${k}">${s}</button>`).join("")}</div></label>`;
-  el.innerHTML = row("i", "1. Istruttiva: cosa fare") + row("m", "2. Motivazionale: darti energia") + row("c", "3. Per le crisi: superare il momento duro") + `<input id="stn" placeholder="Il tuo nome (facoltativo)" style="border:1.5px solid var(--line);border-radius:10px;padding:10px 12px"><div class="st-card" id="stc"></div><p class="note">Fate uno screenshot della scheda: niente viene salvato. Frasi brevi, positive, in prima persona.</p>`;
+  const row = (k, lab) => `<label style="display:block;margin-bottom:14px"><b>${lab}</b><input id="st${k}" class="field" style="margin:6px 0 8px" placeholder="Scrivi o scegli qui sotto"><div class="chips">${sug[k].map((s) => `<button class="chip" data-k="${k}">${s}</button>`).join("")}</div></label>`;
+  el.innerHTML = row("i", "1. Istruttiva: cosa fare") + row("m", "2. Motivazionale: darti energia") + row("c", "3. Per le crisi: superare il momento duro") + `<input id="stn" class="field" placeholder="Il tuo nome (facoltativo)"><div class="st-card" id="stc"></div><p class="note">Fate uno screenshot della scheda: niente viene salvato. Frasi brevi, positive, in prima persona.</p>`;
   const up = () => { const v = (k) => esc($("#st" + k, el).value || "…"); $("#stc", el).innerHTML = `<h4>Il self-talk di ${esc($("#stn", el).value || "…")}</h4><p><b>Istruttiva:</b> ${v("i")}</p><p><b>Motivazionale:</b> ${v("m")}</p><p><b>Per le crisi:</b> ${v("c")}</p><small>Maratona 42,195 · Liceo Galilei Verona</small>`; };
   $$("[data-k]", el).forEach((b) => b.onclick = (e) => { e.preventDefault(); $("#st" + b.dataset.k, el).value = b.textContent; up(); });
   el.addEventListener("input", up); up();
@@ -318,7 +318,7 @@ const LABS = {
 
 /* ================================================================= NAV */
 function nav(active) {
-  $("#nav").innerHTML = S.map((s) => `<a href="#/s/${s.id}" class="${active === s.id ? "on" : ""}"><span class="dot" style="background:${s.color}"></span>${s.short}</a>`).join("") + `<a href="#/sfida" class="${active === "sfida" ? "on" : ""}">Sfida</a><a href="#/docente" class="${active === "docente" ? "on" : ""}">Docente</a>`;
+  $("#nav").innerHTML = S.map((s) => `<a href="#/s/${s.id}" class="${active === s.id ? "on" : ""}"><span class="dot" style="background:${s.color}"></span>${s.short}</a>`).join("") + `<a href="#/sfida" class="${active === "sfida" ? "on" : ""}">Sfida</a>`;
 }
 
 /* ================================================================= HOME */
@@ -336,7 +336,7 @@ function home() {
     <p class="km" style="margin-top:28px">Hai corso con gli occhi <b id="kmc">0,000</b> km</p></div></section>
     <section class="sec"><div class="wrap"><div class="kicker" style="color:var(--track)">5 gruppi, 5 sezioni</div><h2>Scegli il tuo argomento</h2>
     <div class="cards">${S.map((s) => `<a class="card" href="#/s/${s.id}" style="--c:${s.color};--soft:${s.soft}"><div class="num">0${s.n}</div><div class="tag">Gruppo ${s.n} · ${s.tag}</div><h3>${s.title}</h3><p>${s.intro}</p><span class="go">Apri la sezione →</span></a>`).join("")}
-    <a class="card" href="#/sfida" style="--c:#0F1A2B;--soft:#E9ECF2"><div class="num">50</div><div class="tag">Per tutta la classe</div><h3>Sfida a squadre</h3><p>Domande su tutti e cinque gli argomenti, da proiettare in classe con il punteggio per squadra.</p><span class="go">Gioca →</span></a></div></div></section>
+    <a class="card" href="#/sfida" style="--c:#0B1424;--soft:#E3E7EF"><div class="num">50</div><div class="tag">Per tutta la classe</div><h3>Sfida a squadre</h3><p>Domande su tutti e cinque gli argomenti, da proiettare in classe con il punteggio per squadra.</p><span class="go">Gioca →</span></a></div></div></section>
     <section class="sec" style="background:var(--mist)"><div class="wrap"><h2>Come si usa</h2><div class="how">
       <div><b>1 · Impara</b>Ogni sezione ha 6-7 schede brevi con dati e fonti scientifiche.</div>
       <div><b>2 · Laboratorio</b>Calcolatori, simulatori e giochi da usare anche durante l'esposizione.</div>
@@ -365,12 +365,13 @@ function section(id, tab) {
 function lessons(P, s) {
   let i = 0;
   const draw = () => {
-    P.innerHTML = `<div class="lessons"><div class="lnav">${s.lessons.map((l, k) => `<button class="${k === i ? "on" : ""}" data-k="${k}"><span>${k + 1}</span>${l.h}</button>`).join("")}</div>
+    P.innerHTML = `<div class="lessons"><div class="lnav">${s.lessons.map((l, k) => `<button class="${k === i ? "on" : ""}" data-k="${k}"><span>${k + 1}</span><span class="lt">${l.h}</span></button>`).join("")}</div>
       <article class="lesson"><h2>${s.lessons[i].h}</h2>${s.lessons[i].body}
       <div class="pager"><button class="btn ghost sm" id="lp" ${i ? "" : "disabled style='visibility:hidden'"}>← Indietro</button>${i < s.lessons.length - 1 ? `<button class="btn c sm" id="ln">Avanti →</button>` : `<a class="btn c sm" href="#/s/${s.id}/lab">Vai al laboratorio →</a>`}</div></article></div>`;
+    $$(".lesson table", P).forEach((t) => { const w = document.createElement("div"); w.className = "tblwrap"; t.parentNode.insertBefore(w, t); w.appendChild(t); });
     $$(".lnav button", P).forEach((b) => b.onclick = () => { i = +b.dataset.k; draw(); });
     if ($("#lp", P)) $("#lp", P).onclick = () => { i--; draw(); };
-    if ($("#ln", P)) $("#ln", P).onclick = () => { i++; draw(); P.scrollIntoView({ behavior: "smooth" }); };
+    if ($("#ln", P)) $("#ln", P).onclick = () => { i++; draw(); $(".lesson", P).scrollIntoView({ behavior: "smooth", block: "start" }); };
   };
   draw();
 }
@@ -424,15 +425,15 @@ function fonti(P, s) {
 /* ================================================================= SFIDA */
 function sfida() {
   nav("sfida");
-  document.documentElement.style.setProperty("--c", "#E4572E"); document.documentElement.style.setProperty("--soft", "#FCEDE7");
+  document.documentElement.style.setProperty("--c", "#C8401A"); document.documentElement.style.setProperty("--soft", "#FBEAE3");
   let on = new Set(S.map((s) => s.id)), teams = [["Squadra A", 0], ["Squadra B", 0]], pool = [], k = 0, N = 15, revealed = false;
   const build = () => { pool = shuffle(S.filter((s) => on.has(s.id)).flatMap((s) => s.quiz.map((q) => ({ ...q, s, o: shuffle(q.a.map((a, i) => i)) })))).slice(0, N); k = 0; revealed = false; };
   const setup = () => {
-    app.innerHTML = `<section class="sfida"><div class="wrap"><div class="kicker">Da proiettare in classe</div><h1>Sfida a squadre</h1><p style="color:#C9D1E1;max-width:640px">Il conduttore legge la domanda, le squadre rispondono a turno o per alzata di mano, poi si mostra la risposta e si assegna il punto.</p>
+    app.innerHTML = `<section class="sfida"><div class="wrap"><div class="kicker">Da proiettare in classe</div><h1>Sfida a squadre</h1><p style="max-width:660px;font-size:20px">Il conduttore legge la domanda, le squadre rispondono a turno o per alzata di mano, poi si mostra la risposta e si assegna il punto.</p>
       <h3 style="font-size:28px;margin:22px 0 10px">Argomenti</h3><div class="chips" id="ss">${S.map((s) => `<button class="chip ${on.has(s.id) ? "on" : ""}" data-s="${s.id}">${s.title}</button>`).join("")}</div>
       <h3 style="font-size:28px;margin:22px 0 10px">Squadre</h3><div class="teams">${teams.map((t, i) => `<div class="team"><input value="${esc(t[0])}" data-tn="${i}" aria-label="Nome squadra"></div>`).join("")}</div>
       <div class="row"><button class="btn ghost sm" id="ta" style="color:#fff">+ Squadra</button>${teams.length > 2 ? `<button class="btn ghost sm" id="tr" style="color:#fff">− Squadra</button>` : ""}
-      <label style="color:#C9D1E1">Domande: <select id="sn" style="border-radius:8px;padding:6px">${[10, 15, 20, 30, 50].map((n) => `<option ${n === N ? "selected" : ""}>${n}</option>`).join("")}</select></label></div>
+      <label style="color:#fff;font-weight:700">Domande: <select id="sn">${[10, 15, 20, 30, 50].map((n) => `<option ${n === N ? "selected" : ""}>${n}</option>`).join("")}</select></label></div>
       <div class="row" style="margin-top:26px"><button class="btn" id="go">Inizia la sfida</button></div></div></section>`;
     $$("[data-s]").forEach((b) => b.onclick = () => { on.has(b.dataset.s) ? on.size > 1 && on.delete(b.dataset.s) : on.add(b.dataset.s); setup(); });
     $$("[data-tn]").forEach((i) => i.oninput = () => teams[+i.dataset.tn][0] = i.value || "Squadra");
@@ -461,27 +462,14 @@ function sfida() {
   setup();
 }
 
-/* ================================================================= DOCENTE */
-function docente() {
-  nav("docente");
-  document.documentElement.style.setProperty("--c", "#0F1A2B"); document.documentElement.style.setProperty("--soft", "#E9ECF2");
-  app.innerHTML = `<section class="shead"><div class="wrap" style="padding-bottom:30px"><div class="kicker">Pagina docente</div><h1>Come usare l'app in classe</h1><p class="intro">Progetto per la 2E del Liceo scientifico a indirizzo sportivo: cinque gruppi, cinque argomenti, esposizioni di 15 minuti anche in inglese per gli studenti stranieri.</p></div></section>
-    <section class="pane"><div class="wrap"><div class="two">
-    <div class="panel"><h3>Percorso proposto</h3><ol><li><b>Lezione 1:</b> presentazione del progetto e formazione dei gruppi. Ogni gruppo apre la sua sezione.</li><li><b>Lezioni 2-3:</b> studio delle schede, laboratori e quiz. Preparazione della presentazione in inglese.</li><li><b>Lezione 4:</b> esposizioni (5 × 15 minuti) con laboratori dal vivo e domande al pubblico.</li><li><b>Lezione 5:</b> sfida a squadre su tutti gli argomenti, anche con gli studenti ospiti.</li></ol></div>
-    <div class="panel"><h3>Scelte didattiche</h3><ul><li><b>Apprendimento tra pari:</b> ogni gruppo diventa "esperto" e insegna agli altri.</li><li><b>Pratica di richiamo:</b> quiz con spiegazione immediata.</li><li><b>Laboratori</b> per collegare i concetti ai propri dati (zone, ritmo, sudore, Cooper).</li><li><b>CLIL:</b> glossario e pronuncia per l'esposizione in inglese.</li><li><b>Salute:</b> limiti FIDAL per età, RED-S e prevenzione infortuni.</li></ul></div>
-    <div class="panel"><h3>Valutazione</h3><ul><li>Correttezza scientifica dei contenuti</li><li>Chiarezza ed efficacia dell'esposizione</li><li>Uso dell'inglese e del lessico specifico</li><li>Coinvolgimento del pubblico (laboratorio, domande)</li><li>Collaborazione nel gruppo</li></ul></div>
-    <div class="panel"><h3>Note</h3><p>L'app non salva né invia dati: funziona anche proiettata dalla LIM. I calcolatori forniscono stime didattiche e non sostituiscono la valutazione medico-sportiva. Volumi di allenamento, carico di carboidrati e integratori sono riferiti ad atleti adulti; per i minorenni valgono i limiti FIDAL (Allievi fino a 10 km, Juniores fino alla mezza maratona).</p></div></div></div></section>`;
-}
-
 /* ================================================================= ROUTER */
 function route() {
   $$("[data-lab]").forEach((el) => el._cleanup && el._cleanup());
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   const h = location.hash.replace(/^#\/?/, "").split("/");
-  document.documentElement.style.setProperty("--c", "#E4572E"); document.documentElement.style.setProperty("--soft", "#FCEDE7");
+  document.documentElement.style.setProperty("--c", "#C8401A"); document.documentElement.style.setProperty("--soft", "#FBEAE3");
   if (h[0] === "s") section(h[1], h[2]);
   else if (h[0] === "sfida") sfida();
-  else if (h[0] === "docente") docente();
   else home();
   window.scrollTo(0, 0);
 }
